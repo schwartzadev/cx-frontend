@@ -27,6 +27,7 @@ class App extends Component {
         <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
         <hr />
         <Card wordVectors={wordVectors} />
+        <Card wordVectors={wordVectors} />
       </div>
     );
   }
@@ -63,7 +64,7 @@ class Card extends Component {
 
   render() {
     return (
-      <div id="card-body-container" style={this.state.isHidden ? {visibility: 'hidden'} : {} }> {/* todo make this a class -- not an id */}
+      <div className="card-body-container" style={this.state.isHidden ? {visibility: 'hidden'} : {} }>
         <span className="close-div-button" onClick={this.hide.bind(this)} >&times;</span> {/*} todo put this in a flexbox with the cutting toggles */}
         {this.props.wordVectors.map(info => (
           <Word vector={info} />

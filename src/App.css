@@ -33,16 +33,16 @@ body {
   cursor: pointer;
 }
 
-#card-body-container {
+.card-body-container {
   font-size: 11px;
   background-color: #e8e8e8;
   border-radius: 10px;
   padding: 15px;
   max-width: 75%;
-  margin: 20px auto;
+  margin: 40px auto 20px auto;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-#card-body-container > div {
+.card-body-container > div {
   display: inline-block;
 }
