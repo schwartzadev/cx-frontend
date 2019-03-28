@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import wordVectors from './hardCodedCardWords.js';
 import classNames from 'classnames';
+import ContentEditable from 'react-contenteditable'
 var moment = require('moment');
 
 
@@ -93,8 +94,11 @@ class Card extends Component {
     super(props);
     this.state = {
       url: this.props.url,
-      id: this.getNewCardId()
+      id: this.getNewCardId(),
+      tag: "tag tag tag tag tag" // pre-API call
     }
+    this.tagContentEditable = React.createRef();
+    this.citeContentEditable = React.createRef();
   }
 
   getNewCardId() {
@@ -107,12 +111,11 @@ class Card extends Component {
     .then( results => {
       return results.json()
     }).then( data => {
-      console.log(data);
-
+      var author = null;
       if (data.mercury.author != null) { // set author
-        this.setState({author: data.mercury.author}) // TODO get only the last name here
+        author = data.mercury.author // TODO get only the last name here
       } else {
-        this.setState({author: data.mercury.domain})
+        author = data.mercury.domain
       }
 
       var dateInfo = this.generateDateStrings(data.mercury.date_published);
@@ -120,9 +123,9 @@ class Card extends Component {
         title: data.mercury.title,
         source: data.mercury.domain,
         tag: data.mercury.title,
-        citeDate: dateInfo.citeDate,
+        cite: author + ' ' + dateInfo.citeDate,
         accessDate: dateInfo.accessDate,
-        publishedDate: dateInfo.publishedDate
+        publishedDate: dateInfo.publishedDate,
       });
 
     })
@@ -146,12 +149,27 @@ class Card extends Component {
     }
   }
 
+  handleTagChange = evt => { this.setState({tag: evt.target.value}); };
+  handleCiteChange = evt => { this.setState({cite: evt.target.value}); };
+
   render() {
     return (
       <div className="card">
         <p className="card-label">Card #{this.state.id}</p>
-        <p className="card-tag">{this.state.tag}</p>
-        <span className="card-cite">{this.state.author} {this.state.citeDate}</span>
+        {/* TODO prevent new lines in here */}
+        <ContentEditable
+              innerRef={this.tagContentEditable}
+              html={this.state.tag}
+              onChange={this.handleTagChange}
+              className="card-tag"
+        />
+        <ContentEditable
+              innerRef={this.citeContentEditable}
+              html={this.state.cite}
+              onChange={this.handleCiteChange}
+              className="card-cite"
+              tagName="span"
+        />
         <span className="card-cite-details">
           "{this.state.title}" via {this.state.source}, 
           published on {this.state.publishedDate}. {this.state.url} via Debate Cardify. DOA: {this.state.accessDate} {credential}
