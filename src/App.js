@@ -82,10 +82,6 @@ function GetWordClasses(wordVectorValue) {
 }
 
 class Word extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     var wordClasses = GetWordClasses(this.props.vector[1]);
     return (
@@ -116,7 +112,7 @@ class Setting extends React.Component {
     this.props.onChecked(target.checked);
 
     this.setState({
-      ['isChecked']: value
+      'isChecked': value
     });
   }
 
