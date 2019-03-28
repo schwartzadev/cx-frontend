@@ -14,8 +14,8 @@ class Card extends Component {
     this.state = {
       url: this.props.url,
       id: this.getNewCardId(),
-      tag: "tag tag tag tag tag", // pre-API call
-      cite: "author 19",
+      tag: "loading tag . . .", // pre-API call
+      cite: "author ...",
       credential: ''
     }
     this.handleCredentialChange = this.handleCredentialChange.bind(this);
@@ -75,7 +75,7 @@ class Card extends Component {
   handleCiteChange = evt => { this.setState({cite: evt.target.value}); };
   handleCredentialChange = evt => { this.setState({credential: evt.target.value}); console.log(this.state.credential)};
 
-  getCredentialString() { return (this.state.credential == '') ? '' : '[' + this.state.credential + ']'; }
+  getCredentialString() { return (this.state.credential === '') ? '' : '[' + this.state.credential + ']'; }
 
   render() {
     return (
