@@ -7,14 +7,18 @@ const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
 var lastCardId = 0; // reset this to zero when "get source info" is clicked
 
 
+
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
       url: this.props.url,
       id: this.getNewCardId(),
-      tag: "tag tag tag tag tag" // pre-API call
+      tag: "tag tag tag tag tag", // pre-API call
+      cite: "author 19",
+      credential: ''
     }
+    this.handleCredentialChange = this.handleCredentialChange.bind(this);
     this.tagContentEditable = React.createRef();
     this.citeContentEditable = React.createRef();
   }
@@ -69,6 +73,9 @@ class Card extends Component {
 
   handleTagChange = evt => { this.setState({tag: evt.target.value}); };
   handleCiteChange = evt => { this.setState({cite: evt.target.value}); };
+  handleCredentialChange = evt => { this.setState({credential: evt.target.value}); console.log(this.state.credential)};
+
+  getCredentialString() { return (this.state.credential == '') ? '' : '[' + this.state.credential + ']'; }
 
   render() {
     return (
@@ -89,10 +96,15 @@ class Card extends Component {
               tagName="span"
         />
         <span className="card-cite-details">
-          "{this.state.title}" via {this.state.source}, 
+          {this.getCredentialString()} "{this.state.title}" via {this.state.source}, 
           published on {this.state.publishedDate}. {this.state.url} via Debate Cardify. DOA: {this.state.accessDate} {credential}
         </span>
-      {/*TODO add a textarea here to enter credentials, also add credentials as var in state, bind to textarea*/}
+        <textarea
+            className="source-urls-prompt"
+            rows={3}
+            placeholder="enter your source credentials here (optional)"
+            onChange={this.handleCredentialChange}
+          />
       </div>
     );
   }
