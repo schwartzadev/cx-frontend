@@ -294,11 +294,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-617.77817"
-     inkscape:cy="-1605.2554"
+     inkscape:zoom="0.175"
+     inkscape:cx="239.1237"
+     inkscape:cy="-452.7735"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1536"
      inkscape:window-height="811"
@@ -321,7 +321,6 @@
      inkscape:label="modal"
      inkscape:groupmode="layer"
      id="layer1"
-     sodipodi:insensitive="true"
      style="display:inline">
     <rect
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e8e8e8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.30496455;filter:url(#filter3941);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -336,7 +335,8 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="content"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <path
        style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        d="m 246.49003,165.50021 a 2.6581297,2.6581297 0 0 0 -1.85151,4.56405 l 20.52231,20.52231 -20.52231,20.523 a 2.6581297,2.6581297 0 1 0 3.75838,3.75839 l 20.523,-20.52231 20.52231,20.52231 a 2.6581297,2.6581297 0 1 0 3.75908,-3.75839 l -20.523,-20.523 20.523,-20.52231 a 2.6581297,2.6581297 0 0 0 -1.93179,-4.56336 2.6581297,2.6581297 0 0 0 -1.82729,0.80428 l -20.52231,20.523 -20.523,-20.523 a 2.6581297,2.6581297 0 0 0 -1.90687,-0.80497 z"

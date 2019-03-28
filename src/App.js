@@ -63,7 +63,7 @@ class Card extends Component {
 
   render() {
     return (
-      <div id="card-body-container"> {/* todo make this a class -- not an id */}
+      <div id="card-body-container" style={this.state.isHidden ? {visibility: 'hidden'} : {} }> {/* todo make this a class -- not an id */}
         <span className="close-div-button" onClick={this.hide.bind(this)} >&times;</span> {/*} todo put this in a flexbox with the cutting toggles */}
         {this.props.wordVectors.map(info => (
           <Word vector={info} />
