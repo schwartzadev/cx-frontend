@@ -156,6 +156,7 @@ class Card extends Component {
           "{this.state.title}" via {this.state.source}, 
           published on {this.state.publishedDate}. {this.state.url} via Debate Cardify. DOA: {this.state.accessDate} {credential}
         </span>
+      {/*TODO add a textarea here to enter credentials, also add credentials as var in state, bind to textarea*/}
       </div>
     );
   }
