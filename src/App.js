@@ -8,6 +8,7 @@ var moment = require('moment');
 const scoreCutoff = 0.2;
 const credential = '// GW-AS'; // TODO access this from cookies
 const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
+var lastCardId = 0; // reset this to zero when "get source info" is clicked
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +32,6 @@ class App extends Component {
         <hr />
         <SourceURLsPrompt />
         <Card url={"https://www.thewrap.com/flashback-jamal-khashoggi-was-banned-from-appearing-in-saudi-media-for-criticizing-donald-trump/"} />
-        <hr />
         <Card url={"https://thehill.com/homenews/campaign/434792-biden-leads-cnn-poll-but-harris-sanders-on-the-rise"} />
       </div>
     );
@@ -92,8 +92,14 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: this.props.url
+      url: this.props.url,
+      id: this.getNewCardId()
     }
+  }
+
+  getNewCardId() {
+    lastCardId++;
+    return lastCardId;
   }
 
   componentDidMount () {
@@ -122,8 +128,8 @@ class Card extends Component {
     })
   }
 
-  generateDateStrings(date) {
-    var date = moment(date);
+  generateDateStrings(dateString) {
+    var date = moment(dateString);
     var year = date.year();
     var now = moment();
     var currentYear = now.year();
@@ -143,6 +149,7 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
+        <p className="card-label">Card #{this.state.id}</p>
         <p className="card-tag">{this.state.tag}</p>
         <span className="card-cite">{this.state.author} {this.state.citeDate}</span>
         <span className="card-cite-details">
