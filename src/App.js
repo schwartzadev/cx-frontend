@@ -16,6 +16,8 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="card-container">
+        <Setting label="Show word vectors in card?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
+        <hr />
         <div id="card-body-container">
           {wordVectors.map(info => (
             <Word vector={info} />
@@ -25,6 +27,18 @@ class App extends Component {
     );
   }
 }
+
+
+function handleWordVectors(status) {
+  let updatedState = '';
+  if (status) { // to show the vectors
+    updatedState = 'block';
+  } else { // to hide the vectors
+    updatedState = 'none';
+  }
+  for (let el of document.querySelectorAll('.word-vector')) el.style.display = updatedState; // update the style of all of the word-vector elements
+}
+
 
 export default App;
 
@@ -50,8 +64,47 @@ class Word extends Component {
       <div className="word-container-outer">
         <div className="word-container-inner">
           <div className={wordClasses}>{this.props.vector[0]}</div>
+          <div className="word-vector">{ Math.round(this.props.vector[1] * 100) }</div>
         </div>
       </div>
+    );
+  }
+}
+
+class Setting extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isChecked: this.props.defaultChecked,
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.props.onChecked(target.checked);
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          {this.props.label}
+          <input
+            name={this.props.name}
+            type="checkbox"
+            checked={this.state.isChecked}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
     );
   }
 }
