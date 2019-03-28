@@ -58,3 +58,19 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+.card-tag {
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-bottom: 0;
+}
+
+.card-cite {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 3px;
+}
+
+.card-cite-details {
+  font-size: .8em;
+}

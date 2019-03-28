@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import wordVectors from './hardCodedCardWords.js';
 import classNames from 'classnames';
+var moment = require('moment');
 
 
 const scoreCutoff = 0.2;
+const credential = '// GW-AS'; // TODO access this from cookies
+const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
 
 class App extends Component {
   constructor(props) {
@@ -27,8 +30,9 @@ class App extends Component {
         <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
         <hr />
         <SourceURLsPrompt />
-        <Card wordVectors={wordVectors} />
-        <Card wordVectors={wordVectors} />
+        <Card url={"https://www.thewrap.com/flashback-jamal-khashoggi-was-banned-from-appearing-in-saudi-media-for-criticizing-donald-trump/"} />
+        <hr />
+        <Card url={"https://thehill.com/homenews/campaign/434792-biden-leads-cnn-poll-but-harris-sanders-on-the-rise"} />
       </div>
     );
   }
@@ -85,6 +89,73 @@ export default App;
 
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: this.props.url
+    }
+  }
+
+  componentDidMount () {
+    fetch(mercuryApiBaseUrl + this.props.url)
+    .then( results => {
+      return results.json()
+    }).then( data => {
+      console.log(data);
+
+      if (data.mercury.author != null) { // set author
+        this.setState({author: data.mercury.author}) // TODO get only the last name here
+      } else {
+        this.setState({author: data.mercury.domain})
+      }
+
+      var dateInfo = this.generateDateStrings(data.mercury.date_published);
+      this.setState({
+        title: data.mercury.title,
+        source: data.mercury.domain,
+        tag: data.mercury.title,
+        citeDate: dateInfo.citeDate,
+        accessDate: dateInfo.accessDate,
+        publishedDate: dateInfo.publishedDate
+      });
+
+    })
+  }
+
+  generateDateStrings(date) {
+    var date = moment(date);
+    var year = date.year();
+    var now = moment();
+    var currentYear = now.year();
+    var citeDate;
+    if (year === currentYear) {
+      citeDate = date.format('M/D');
+    } else {
+      citeDate = date.format('YY');
+    }
+    return {
+      citeDate: citeDate,
+      publishedDate: date.format('M/D/Y'),
+      accessDate: now.format('M/D/Y')
+    }
+  }
+
+  render() {
+    return (
+      <div className="card">
+        <p className="card-tag">{this.state.tag}</p>
+        <span className="card-cite">{this.state.author} {this.state.citeDate}</span>
+        <span className="card-cite-details">
+          "{this.state.title}" via {this.state.source}, 
+          published on {this.state.publishedDate}. {this.state.url} via Debate Cardify. DOA: {this.state.accessDate} {credential}
+        </span>
+      </div>
+    );
+  }
+}
+
+
+class CardModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
