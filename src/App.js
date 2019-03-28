@@ -35,12 +35,7 @@ class App extends Component {
 
 
 function handleWordVectors(status) {
-  let updatedState = '';
-  if (status) { // to show the vectors TODO use a ternary here
-    updatedState = 'block';
-  } else { // to hide the vectors
-    updatedState = 'none';
-  }
+  let updatedState = status ? 'block' : 'none';
   for (let el of document.querySelectorAll('.word-vector')) el.style.display = updatedState; // update the style of all of the word-vector elements
 }
 
@@ -116,13 +111,12 @@ class Setting extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    const value = target.checked;
 
     this.props.onChecked(target.checked);
 
     this.setState({
-      [name]: value
+      ['isChecked']: value
     });
   }
 
