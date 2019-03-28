@@ -46,3 +46,15 @@ body {
 .card-body-container > div {
   display: inline-block;
 }
+
+.source-urls-prompt {
+  width: 60%;
+  display: block;
+  margin: 10px auto;
+}
+
+.source-urls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
