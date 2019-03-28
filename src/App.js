@@ -10,19 +10,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardWords: wordVectors
+      cardWords: wordVectors,
+      isHidden: false
     }
   }
+
+  hide() {
+    this.setState({
+      isHidden: false
+    })
+  }
+
   render() {
     return (
       <div className="App" id="card-container">
-        <Setting label="Show word vectors in card?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
+        <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
         <hr />
-        <div id="card-body-container">
-          {wordVectors.map(info => (
-            <Word vector={info} />
-          ))};
-        </div>
+        <Card wordVectors={wordVectors} />
       </div>
     );
   }
@@ -31,7 +35,7 @@ class App extends Component {
 
 function handleWordVectors(status) {
   let updatedState = '';
-  if (status) { // to show the vectors
+  if (status) { // to show the vectors TODO use a ternary here
     updatedState = 'block';
   } else { // to hide the vectors
     updatedState = 'none';
@@ -41,6 +45,34 @@ function handleWordVectors(status) {
 
 
 export default App;
+
+
+class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isHidden: false
+    }
+  }
+
+  hide() {
+    this.setState({
+      isHidden: true
+    })
+  }
+
+  render() {
+    return (
+      <div id="card-body-container"> {/* todo make this a class -- not an id */}
+        <span className="close-div-button" onClick={this.hide.bind(this)} >&times;</span> {/*} todo put this in a flexbox with the cutting toggles */}
+        {this.props.wordVectors.map(info => (
+          <Word vector={info} />
+        ))};
+      </div>
+    );
+  }
+}
+
 
 function GetWordClasses(wordVectorValue) {
   if (wordVectorValue < scoreCutoff) {

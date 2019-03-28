@@ -25,6 +25,14 @@ body {
   display: none;
 }
 
+.close-div-button {
+  display: block;
+  text-align: right;
+  font-weight: bold;
+  font-size: 30px;
+  cursor: pointer;
+}
+
 #card-body-container {
   font-size: 11px;
   background-color: #e8e8e8;
