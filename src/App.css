@@ -1,0 +1,35 @@
+body {
+  font-family: 'Times New Roman';
+}
+
+.cut-text {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 150%;
+}
+
+.word-container-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+}
+
+.word {
+  padding: 0.15em;
+}
+
+.word-vector {
+  color: grey;
+  font-size: 80%;
+}
+
+#card-body-container {
+  width: 100%;
+  height: 400px;
+  font-size: 11px;
+}
+
+#card-body-container > div {
+  display: inline-block;
+}
