@@ -35,9 +35,6 @@ class App extends Component {
 class SourceURLsPrompt extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '' // textarea initial value
-    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,6 +48,10 @@ class SourceURLsPrompt extends Component {
     event.preventDefault();
     let urls = this.state.value.split('\n');
     console.log(urls);
+    if (urls.length > 5) {
+      alert('please enter up to 5 urls');
+      return;
+    }
     // todo call Mercury API here (async)
     // todo implement a maximum number of URLs allowed per request
   }
@@ -61,9 +62,8 @@ class SourceURLsPrompt extends Component {
       <form onSubmit={this.handleSubmit} className="source-urls-container">
           <textarea
             className="source-urls-prompt"
-            rows={6}
+            rows={5}
             placeholder={textareaPlaceholder}
-            value={this.state.value}
             onChange={this.handleChange}
           />
         <input type="submit" value="Get Source Info" />
