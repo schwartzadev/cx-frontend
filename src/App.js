@@ -30,6 +30,15 @@ class App extends Component {
   }
 }
 
+function isUrl(str) {
+  try {
+    new URL(str);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 class SourceURLsPrompt extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +55,16 @@ class SourceURLsPrompt extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let urls = this.state.value.split('\n');
+    let rawUrls = this.state.value.split('\n');
+    let urls = rawUrls.filter(isUrl);
+    let badUrlsCount = rawUrls.length - urls.length;
+
+    if (badUrlsCount === 1) {
+      alert('1 url was removed because it was malformed')
+    } else if (badUrlsCount > 1) {
+      alert(badUrlsCount + ' urls were removed because they were malformed')
+    }
+
     if (urls.length > 5) {
       alert('please enter up to 5 urls');
       return;
