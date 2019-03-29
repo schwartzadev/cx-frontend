@@ -91,6 +91,10 @@ body {
   font-size: .8em;
 }
 
+.card-credential {
+  margin-right: 3px;
+}
+
 .card-url {
   color: black;
   text-decoration: none;

@@ -45,7 +45,8 @@ class SourceURLsPrompt extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      urlList: []
+      urlList: ['https://www.cnn.com/politics/live-news/trump-rally-michigan-march-2019/index.html'] // for development
+      // urlList: []
     };
   }
 

@@ -78,6 +78,13 @@ class Card extends Component {
   getCredentialString() { return (this.state.credential === '') ? '' : '[' + this.state.credential + ']'; }
   // todo handle articles with no date
   // todo handle 404s
+
+ cutCard() {
+    console.log('cutting card...');
+    console.log('cutting card...');
+    // make a call to the server w/ url params of card info -- return file, redirect page to download automatically
+  }
+
   render() {
     return (
       <div className="card">
@@ -96,20 +103,40 @@ class Card extends Component {
               className="card-cite"
               tagName="span"
         />
+
         <span className="card-cite-details">
-          {this.getCredentialString()} "{this.state.title}" via {this.state.source}, 
-          published on {this.state.publishedDate}. <a className="card-url" href={this.state.url}>{this.state.url}</a> via 
-          Debate Cardify. DOA: {this.state.accessDate} {credential}
+          <span className="card-credential">{this.getCredentialString()}</span>
+          <CiteDetail
+                title={this.state.title}
+                source={this.state.source}
+                publishedDate={this.state.publishedDate}
+                url={this.state.url}
+                accessDate={this.state.accessDate}
+          />
         </span>
         <textarea
             className="source-urls-prompt"
             rows={3}
             placeholder="enter your source credentials here (optional)"
             onChange={this.handleCredentialChange}
-          />
+        />
+        <div>
+          <button onClick={() => this.cutCard()}>cut card</button>
+        </div>
       </div>
     );
   }
 }
 
+class CiteDetail extends Component {
+  render () {
+    return (
+      <span>
+         "{this.props.title}" via {this.props.source}, 
+          published on {this.props.publishedDate}. <a className="card-url" href={this.props.url}>{this.props.url}</a> via 
+          Debate Cardify. DOA: {this.props.accessDate} {credential}
+      </span>
+    )
+  }
+}
 export default Card;
