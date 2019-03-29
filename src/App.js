@@ -25,8 +25,6 @@ class App extends Component {
         <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
         <hr />
         <SourceURLsPrompt />
-        <Card url={"https://www.thewrap.com/flashback-jamal-khashoggi-was-banned-from-appearing-in-saudi-media-for-criticizing-donald-trump/"} />
-        <Card url={"https://thehill.com/homenews/campaign/434792-biden-leads-cnn-poll-but-harris-sanders-on-the-rise"} />
       </div>
     );
   }
@@ -35,9 +33,11 @@ class App extends Component {
 class SourceURLsPrompt extends Component {
   constructor(props) {
     super(props);
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      urlList: []
+    };
   }
 
   handleChange(event) {
@@ -47,27 +47,30 @@ class SourceURLsPrompt extends Component {
   handleSubmit(event) {
     event.preventDefault();
     let urls = this.state.value.split('\n');
-    console.log(urls);
     if (urls.length > 5) {
       alert('please enter up to 5 urls');
       return;
     }
-    // todo call Mercury API here (async)
-    // todo implement a maximum number of URLs allowed per request
+    this.setState({ urlList: urls });
   }
 
   render() {
     const textareaPlaceholder = "Enter your source URLs (one per line)";
     return (
-      <form onSubmit={this.handleSubmit} className="source-urls-container">
-          <textarea
-            className="source-urls-prompt"
-            rows={5}
-            placeholder={textareaPlaceholder}
-            onChange={this.handleChange}
-          />
-        <input type="submit" value="Get Source Info" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit} className="source-urls-container">
+            <textarea
+              className="source-urls-prompt"
+              rows={5}
+              placeholder={textareaPlaceholder}
+              onChange={this.handleChange}
+            />
+          <input type="submit" value="Get Source Info" />
+        </form>
+        {this.state.urlList.map(url => (
+          <Card url={url} />
+        ))}
+      </div>
     )
   }
 }
