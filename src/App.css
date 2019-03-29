@@ -90,3 +90,12 @@ body {
 .card-cite-details {
   font-size: .8em;
 }
+
+.card-url {
+  color: black;
+  text-decoration: none;
+}
+
+.card-url:hover {
+  text-decoration: underline;
+}

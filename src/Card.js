@@ -76,7 +76,8 @@ class Card extends Component {
   handleCredentialChange = evt => { this.setState({credential: evt.target.value}); console.log(this.state.credential)};
 
   getCredentialString() { return (this.state.credential === '') ? '' : '[' + this.state.credential + ']'; }
-
+  // todo handle articles with no date
+  // todo handle 404s
   render() {
     return (
       <div className="card">
@@ -97,7 +98,8 @@ class Card extends Component {
         />
         <span className="card-cite-details">
           {this.getCredentialString()} "{this.state.title}" via {this.state.source}, 
-          published on {this.state.publishedDate}. {this.state.url} via Debate Cardify. DOA: {this.state.accessDate} {credential}
+          published on {this.state.publishedDate}. <a className="card-url" href={this.state.url}>{this.state.url}</a> via 
+          Debate Cardify. DOA: {this.state.accessDate} {credential}
         </span>
         <textarea
             className="source-urls-prompt"
