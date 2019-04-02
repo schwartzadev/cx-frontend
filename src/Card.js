@@ -81,7 +81,13 @@ class Card extends Component {
 
  cutCard() {
     console.log('cutting card...');
-    console.log('cutting card...');
+    console.log(this.state.tag);
+    console.log(this.state.cite);
+    console.log(this.state.title);
+    console.log(this.state.source);
+    console.log(this.state.publishedDate);
+    console.log(this.state.url);
+    console.log(this.state.accessDate);
     // make a call to the server w/ url params of card info -- return file, redirect page to download automatically
   }
 
@@ -120,8 +126,8 @@ class Card extends Component {
             placeholder="enter your source credentials here (optional)"
             onChange={this.handleCredentialChange}
         />
-        <div>
-          <button onClick={() => this.cutCard()}>cut card</button>
+        <div className="card-button-container">
+          <button onClick={() => this.cutCard()} className="button button-small button-grey button-center">cut card</button>
         </div>
       </div>
     );
@@ -139,4 +145,5 @@ class CiteDetail extends Component {
     )
   }
 }
+
 export default Card;

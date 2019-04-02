@@ -56,6 +56,10 @@ class SourceURLsPrompt extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    if (typeof this.state.value === "undefined") {
+      alert('no urls were entered :(');
+      return;
+    }
     let rawUrls = this.state.value.split('\n');
     let urls = rawUrls.filter(isUrl);
     let badUrlsCount = rawUrls.length - urls.length;
@@ -84,7 +88,7 @@ class SourceURLsPrompt extends Component {
               placeholder={textareaPlaceholder}
               onChange={this.handleChange}
             />
-          <input type="submit" value="Get Source Info" />
+            <input type="submit" value="Get Source Info" className="button button-blue" />
         </form>
         {this.state.urlList.map(url => (
           <Card url={url} />

@@ -103,3 +103,44 @@ body {
 .card-url:hover {
   text-decoration: underline;
 }
+
+.button {
+  border: none;
+  border-radius: 6px;
+  font-family: Arial;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.button-blue {
+  color: #ffffff;
+  background: #3498db;
+}
+
+.button-blue:hover {
+  background: #2C81BA;
+  text-decoration: none;
+}
+
+.button-grey {
+  background: #EDEDED;
+  border: 1.5px #212121 solid;
+  color: #212121;
+}
+
+.button-grey:hover {
+  background: #F9F9F9;
+}
+
+
+.button-small {
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+.card-button-container {
+  text-align: center;
+}
