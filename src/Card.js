@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ContentEditable from 'react-contenteditable'
 var moment = require('moment');
 
-const credential = '// GW-AS'; // TODO access this from cookies
+const attribution = '// GW-AS'; // TODO access this from cookies
 const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
 var lastCardId = 0; // reset this to zero when "get source info" is clicked
 
@@ -73,7 +73,7 @@ class Card extends Component {
 
   handleTagChange = evt => { this.setState({tag: evt.target.value}); };
   handleCiteChange = evt => { this.setState({cite: evt.target.value}); };
-  handleCredentialChange = evt => { this.setState({credential: evt.target.value}); console.log(this.state.credential)};
+  handleCredentialChange = evt => { this.setState({credential: evt.target.value});};
 
   getCredentialString() { return (this.state.credential === '') ? '' : '[' + this.state.credential + ']'; }
   // todo handle articles with no date
@@ -81,13 +81,16 @@ class Card extends Component {
 
  cutCard() {
     console.log('cutting card...');
-    console.log(this.state.tag);
-    console.log(this.state.cite);
-    console.log(this.state.title);
-    console.log(this.state.source);
-    console.log(this.state.publishedDate);
-    console.log(this.state.url);
-    console.log(this.state.accessDate);
+    console.log('tag: ' + this.state.tag);
+    console.log('cite: ' + this.state.cite);
+    console.log('title: ' + this.state.title);
+    console.log('source: ' + this.state.source);
+    console.log('publishedDate: ' + this.state.publishedDate);
+    console.log('url: ' + this.state.url);
+    console.log('accessDate: ' + this.state.accessDate);
+    console.log('credential: ' + this.state.credential);
+    console.log('attribution: ' + attribution);
+
     // make a call to the server w/ url params of card info -- return file, redirect page to download automatically
   }
 
@@ -140,7 +143,7 @@ class CiteDetail extends Component {
       <span>
          "{this.props.title}" via {this.props.source}, 
           published on {this.props.publishedDate}. <a className="card-url" href={this.props.url}>{this.props.url}</a> via 
-          Debate Cardify. DOA: {this.props.accessDate} {credential}
+          Debate Cardify. DOA: {this.props.accessDate} {attribution}
       </span>
     )
   }
