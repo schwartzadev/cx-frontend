@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ContentEditable from 'react-contenteditable'
 var moment = require('moment');
+var download = require('downloadjs');
 
 const attribution = '// GW-AS'; // TODO access this from cookies
 const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
@@ -47,6 +48,7 @@ class Card extends Component {
         tag: data.mercury.title,
         cite: author + ' ' + dateInfo.citeDate,
         accessDate: dateInfo.accessDate,
+        body: data.mercury.content,
         publishedDate: dateInfo.publishedDate,
       });
 
@@ -79,19 +81,40 @@ class Card extends Component {
   // todo handle articles with no date
   // todo handle 404s
 
- cutCard() {
-    console.log('cutting card...');
-    console.log('tag: ' + this.state.tag);
-    console.log('cite: ' + this.state.cite);
-    console.log('title: ' + this.state.title);
-    console.log('source: ' + this.state.source);
-    console.log('publishedDate: ' + this.state.publishedDate);
-    console.log('url: ' + this.state.url);
-    console.log('accessDate: ' + this.state.accessDate);
-    console.log('credential: ' + this.state.credential);
-    console.log('attribution: ' + attribution);
+  cutCard() {
 
-    // make a call to the server w/ url params of card info -- return file, redirect page to download automatically
+    function getFileName(cite, tag) {
+      return `Cardify ${tag.replace(/[^a-z0-9]/gi, '_')} ${cite.replace(/[^a-z0-9]/gi, '_')}.docx`;
+    }
+
+    console.log('cutting card...');
+    var postData = {
+      "title": this.state.title,
+      "cite": this.state.cite,
+      "tag": this.state.tag,
+      "source": this.state.source,
+      "published_date": this.state.publishedDate,
+      "access_date": this.state.accessDate,
+      "url": this.state.url,
+      "attr": this.state.attribution,
+      "credential": this.state.credential,
+      "body": this.state.body,
+    }
+    console.log(postData);
+
+    fetch("http://localhost:8000/api/v2/save/", {
+      body: JSON.stringify(postData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST"
+    })
+    .then(response => response.blob())
+    .then(blob => download (
+      blob,
+      getFileName(this.state.cite, this.state.tag),
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ));
   }
 
   render() {
