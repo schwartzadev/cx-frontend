@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "downloadjs": "^1.4.7",
     "moment": "^2.24.0",
     "react": "^16.8.4",
     "react-contenteditable": "^3.2.6",
