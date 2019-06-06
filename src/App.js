@@ -47,9 +47,9 @@ class SourceURLsPrompt extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      urlList: []
+      urlList: [],
+      showReminders: true
     };
-    // todo add a faint "enter some urls in the box above" if there are no cards
   }
 
   handleChange(event) {
@@ -77,9 +77,13 @@ class SourceURLsPrompt extends Component {
       return;
     }
     this.setState({ urlList: urls });
+    if (urls.length > 0) {
+      this.state.showReminders = false; // hide the reminders if urls have been entered
+    }
   }
 
   render() {
+    const showReminders = this.state.showReminders;
     const textareaPlaceholder = "Enter your source URLs (one per line)";
     return (
       <div>
@@ -92,6 +96,7 @@ class SourceURLsPrompt extends Component {
             />
             <input type="submit" value="Get Source Info" className="button button-blue" />
         </form>
+        {showReminders ? (<p className="user-reminder-text">enter some URLs into the box above to get started...</p>) : (null)}
         {this.state.urlList.map(url => (
           <Card url={url} />
         ))}

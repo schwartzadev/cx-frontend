@@ -144,3 +144,11 @@ body {
 .card-button-container {
   text-align: center;
 }
+
+
+.user-reminder-text {
+  color: #b2b2b2;
+  font-size: .9em;
+  text-align: center;
+  margin-top: 4em;
+}

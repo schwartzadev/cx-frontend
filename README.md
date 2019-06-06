@@ -11,7 +11,7 @@ This system currently uses three different servers.
 ## TODOs
 
 ### App.js
-- [ ] todo add a faint "enter some urls in the box above" if there are no cards
+- [x] todo add a faint "enter some urls in the box above" if there are no cards
 
 ### Card.js
 - [ ] configure custom attributions
