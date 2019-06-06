@@ -2,7 +2,11 @@
 
 This is the frontend for a card-cutting program for debate
 
-Run it using `npm start`. See the notes below for a non-exhaustive list of known issues / future improvements.
+## Usage
+This system currently uses three different servers.
+1. This one. Run it using `yarn start` in the root directory of this repository.
+2. The [Mercury Parser](https://github.com/schwartzadev/mercury-parser-express) (currently running on port 5555).
+3. The card cutting backend (on port 8888)
 
 ## TODOs
 
