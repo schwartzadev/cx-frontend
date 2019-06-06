@@ -9,7 +9,7 @@ class Header extends Component {
         <p>Try it out! Enter URLs into the box below:</p>
       </div>
     );
-  }
+  } // todo style this nicely
 }
 
 export default Header;

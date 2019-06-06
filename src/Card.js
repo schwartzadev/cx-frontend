@@ -17,7 +17,7 @@ class Card extends Component {
       id: this.getNewCardId(),
       tag: "loading tag . . .", // pre-API call
       cite: "author ...",
-      credential: ''
+      credential: '',
     }
     this.handleCredentialChange = this.handleCredentialChange.bind(this);
     this.tagContentEditable = React.createRef();
@@ -30,8 +30,11 @@ class Card extends Component {
   }
 
   componentDidMount () {
-    fetch(mercuryApiBaseUrl + this.props.url)
+    this.setState({fetchInProgress: true}); // start fetching...
+
+    fetch(mercuryApiBaseUrl + this.props.url) // TODO handle bad responses
     .then( results => {
+      this.setState({fetchInProgress: false}); // done fetching...
       return results.json()
     }).then( data => {
       var author = null;
@@ -118,45 +121,52 @@ class Card extends Component {
   }
 
   render() {
-    return (
-      <div className="card">
-        <p className="card-label">Card #{this.state.id}</p>
-        {/* TODO prevent new lines in here */}
-        <ContentEditable
-              innerRef={this.tagContentEditable}
-              html={this.state.tag}
-              onChange={this.handleTagChange}
-              className="card-tag"
-        />
-        <ContentEditable
-              innerRef={this.citeContentEditable}
-              html={this.state.cite}
-              onChange={this.handleCiteChange}
-              className="card-cite"
-              tagName="span"
-        />
+    const isFetching = this.state.fetchInProgress;
+    if (isFetching) {
+      return (
+        <div>loading</div>
+      )
+    } else {
+      return (
+        <div className="card">
+            {/* TODO prevent new lines in here */}
+            <p className="card-label">Card #{this.state.id}</p>
+            <ContentEditable
+                  innerRef={this.tagContentEditable}
+                  html={this.state.tag}
+                  onChange={this.handleTagChange}
+                  className="card-tag"
+            />
+            <ContentEditable
+                  innerRef={this.citeContentEditable}
+                  html={this.state.cite}
+                  onChange={this.handleCiteChange}
+                  className="card-cite"
+                  tagName="span"
+            />
 
-        <span className="card-cite-details">
-          <span className="card-credential">{this.getCredentialString()}</span>
-          <CiteDetail
-                title={this.state.title}
-                source={this.state.source}
-                publishedDate={this.state.publishedDate}
-                url={this.state.url}
-                accessDate={this.state.accessDate}
-          />
-        </span>
-        <textarea
-            className="source-urls-prompt"
-            rows={3}
-            placeholder="enter your source credentials here (optional)"
-            onChange={this.handleCredentialChange}
-        />
-        <div className="card-button-container">
-          <button onClick={() => this.cutCard()} className="button button-small button-grey button-center">cut card</button>
+            <span className="card-cite-details">
+              <span className="card-credential">{this.getCredentialString()}</span>
+              <CiteDetail
+                    title={this.state.title}
+                    source={this.state.source}
+                    publishedDate={this.state.publishedDate}
+                    url={this.state.url}
+                    accessDate={this.state.accessDate}
+              />
+            </span>
+            <textarea
+                className="source-urls-prompt"
+                rows={3}
+                placeholder="enter your source credentials here (optional)"
+                onChange={this.handleCredentialChange}
+            />
+            <div className="card-button-container">
+              <button onClick={() => this.cutCard()} className="button button-small button-grey button-center">cut card</button>
+            </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
