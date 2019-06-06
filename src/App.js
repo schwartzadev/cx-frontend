@@ -78,7 +78,7 @@ class SourceURLsPrompt extends Component {
     }
     this.setState({ urlList: urls });
     if (urls.length > 0) {
-      this.state.showReminders = false; // hide the reminders if urls have been entered
+      this.setState({showReminders: false}); // hide the reminders if urls have been entered
     }
   }
 
