@@ -84,7 +84,7 @@ class Card extends Component {
   cutCard() {
 
     function getFileName(cite, tag) {
-      return `Cardify ${tag.replace(/[^a-z0-9]/gi, '_')} ${cite.replace(/[^a-z0-9]/gi, '_')}.docx`;
+      return `Cardify ${cite.replace(/[^a-z0-9]/gi, '_')}.docx`;
     }
 
     console.log('cutting card...');
