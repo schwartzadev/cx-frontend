@@ -20,6 +20,9 @@ This system currently uses three different servers.
 - [ ] handle 404s
 - [ ] prevent new lines in the ContentEditable fields
 
+## Notes 4-16-19
+The three servers is likely here to stay since otherwise, accessing the Mercury API would happen through the frontend, which would be blocked because of Cross Origin Requests.
+
 ## Notes 4-2-19
 
 This program now works as a prototype but still has a number of major (and minor) quirks
