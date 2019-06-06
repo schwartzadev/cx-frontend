@@ -45,9 +45,9 @@ class SourceURLsPrompt extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      urlList: ['https://www.cnn.com/politics/live-news/trump-rally-michigan-march-2019/index.html'] // for development
-      // urlList: []
+      urlList: []
     };
+    // todo add a faint "enter some urls in the box above" if there are no cards
   }
 
   handleChange(event) {
