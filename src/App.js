@@ -22,8 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="card-container">
-        <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
-        <hr />
+        {/* <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
+        <hr />  */}
         <SourceURLsPrompt />
       </div>
     );
