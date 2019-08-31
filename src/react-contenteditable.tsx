@@ -1,4 +1,10 @@
-// copied from https://github.com/lovasoa/react-contenteditable
+/*
+copied from https://github.com/lovasoa/react-contenteditable
+
+added functionality to support more than just true/false for the
+contentEditable attribute, especially to use the plaintext-only status
+
+*/
 
 import * as React from 'react';
 import deepEqual from 'fast-deep-equal';
