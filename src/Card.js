@@ -147,6 +147,7 @@ class Card extends Component {
                   onChange={this.handleCiteChange}
                   className="card-cite"
                   tagName="span"
+                  plainTextOnly={true}
             />
 
             <span className="card-cite-details">
