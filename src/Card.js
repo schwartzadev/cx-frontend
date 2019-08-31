@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ContentEditable from 'react-contenteditable'
+import ContentEditable from './react-contenteditable';
 var moment = require('moment');
 var download = require('downloadjs');
 
@@ -139,6 +139,7 @@ class Card extends Component {
                   html={this.state.tag}
                   onChange={this.handleTagChange}
                   className="card-tag"
+                  plainTextOnly={true}
             />
             <ContentEditable
                   innerRef={this.citeContentEditable}
