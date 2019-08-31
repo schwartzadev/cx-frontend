@@ -124,7 +124,10 @@ class Card extends Component {
     const isFetching = this.state.fetchInProgress;
     if (isFetching) {
       return (
-        <div>loading</div>
+        <div className="card">
+            <p className="card-label">Card #{this.state.id}</p>
+          <div className="card-tag">loading...</div>
+        </div>
       )
     } else {
       return (
