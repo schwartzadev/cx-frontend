@@ -1,0 +1,11 @@
+.header {
+	text-align: center;
+}
+
+.header h1 {
+	margin-bottom: 0;
+}
+
+.header h3 {
+	margin-top: 0.5em;
+}
