@@ -112,7 +112,7 @@ class Card extends Component {
       "published_date": this.state.publishedDate,
       "access_date": this.state.accessDate,
       "url": this.state.url,
-      "attr": this.state.attribution,
+      "attribution": this.state.attribution,
       "credential": this.state.credential,
       "body": this.state.body,
     }
