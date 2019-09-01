@@ -19,13 +19,7 @@ class Card extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      url: this.props.url,
-      id: this.getNewCardId(),
-      tag: "loading tag . . .", // pre-API call
-      cite: "author ...",
-      credential: '',
-    }
+
     this.handleCredentialChange = this.handleCredentialChange.bind(this);
     this.tagContentEditable = React.createRef();
     this.citeContentEditable = React.createRef();
@@ -33,7 +27,12 @@ class Card extends Component {
     const { cookies } = props;
 
     this.state = {
-      attribution: cookies.get('attribution') || ''
+      url: this.props.url,
+      tag: "loading tag . . .", // pre-API call
+      cite: "author ...",
+      credential: '',
+      attribution: cookies.get('attribution') || '',
+      id: this.getNewCardId()
     };
   }
 
