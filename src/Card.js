@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import ContentEditable from './react-contenteditable';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+
 var moment = require('moment');
 var download = require('downloadjs');
 
-const attribution = '// GW-AS'; // TODO access this from cookies
 const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
 var lastCardId = 0; // reset this to zero when "get source info" is clicked
 
 
 
 class Card extends Component {
+
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +29,12 @@ class Card extends Component {
     this.handleCredentialChange = this.handleCredentialChange.bind(this);
     this.tagContentEditable = React.createRef();
     this.citeContentEditable = React.createRef();
+
+    const { cookies } = props;
+
+    this.state = {
+      attribution: cookies.get('attribution') || ''
+    };
   }
 
   getNewCardId() {
@@ -80,7 +93,7 @@ class Card extends Component {
   handleCiteChange = evt => { this.setState({cite: evt.target.value}); };
   handleCredentialChange = evt => { this.setState({credential: evt.target.value});};
 
-  getCredentialString() { return (this.state.credential === '') ? '' : '[' + this.state.credential + ']'; }
+  getCredentialString() { return (this.state.credential === '' || this.state.credential === undefined) ? '' : '[' + this.state.credential + ']'; }
   // todo handle articles with no date
   // todo handle 404s
 
@@ -158,6 +171,7 @@ class Card extends Component {
                     publishedDate={this.state.publishedDate}
                     url={this.state.url}
                     accessDate={this.state.accessDate}
+                    attribution={this.state.attribution}
               />
             </span>
             <textarea
@@ -181,10 +195,10 @@ class CiteDetail extends Component {
       <span>
          "{this.props.title}" via {this.props.source}, 
           published on {this.props.publishedDate}. <a className="card-url" href={this.props.url}>{this.props.url}</a> via 
-          Debate Cardify. DOA: {this.props.accessDate} {attribution}
+          Debate Cardify. DOA: {this.props.accessDate} {this.props.attribution}
       </span>
     )
   }
 }
 
-export default Card;
+export default withCookies(Card);

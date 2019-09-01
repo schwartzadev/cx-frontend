@@ -1,0 +1,28 @@
+.attribution-container {
+	margin: 0 auto;
+	position: fixed;
+	right: 20px;
+	top: 10px;
+}
+
+.attribution-input {
+	width: 60px;
+}
+
+.attribution-label {
+	margin: 0 0 5px;
+}
+
+.attribution-container form {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
+
+.attribution-container form * {
+	margin: 2px auto;
+}
+
+#set-attribution-button {
+	margin-left: 5px;
+}

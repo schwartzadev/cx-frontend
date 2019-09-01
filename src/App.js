@@ -3,6 +3,7 @@ import './App.css';
 import wordVectors from './hardCodedCardWords.js';
 import Card from './Card.js';
 import Header from './Header.js';
+import Attribution from './Attribution.js';
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="card-container">
+        <Attribution />
         <Header />
         {/* <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
         <hr />  */}
