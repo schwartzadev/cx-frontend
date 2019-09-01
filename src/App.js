@@ -99,8 +99,8 @@ class SourceURLsPrompt extends Component {
             <input type="submit" value="Get Source Info" className="button button-blue" />
         </form>
         {showReminders ? (<p className="user-reminder-text">enter some URLs into the box above to get started...</p>) : (null)}
-        {this.state.urlList.map(url => (
-          <Card url={url} />
+        {this.state.urlList.map((url, index) => (
+          <Card url={url} key={index+1}/>
         ))}
       </div>
     )
