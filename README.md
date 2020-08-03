@@ -8,6 +8,10 @@ This system currently uses three different servers.
 2. The [Mercury Parser](https://github.com/schwartzadev/mercury-parser-express) (currently running on port 5555).
 3. The card cutting backend (on port 8888)
 
+## Docker
+1. `docker build -t cx-frontend .`
+2. `docker run -p 80:3000 -d cx-frontend`
+
 ## TODOs
 
 ### App.js
