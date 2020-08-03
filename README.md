@@ -6,7 +6,7 @@ This is the frontend for a card-cutting program for debate
 This system currently uses three different servers.
 1. This one. Run it using `yarn start` in the root directory of this repository.
 2. The [Mercury Parser](https://github.com/schwartzadev/mercury-parser-express) (currently running on port 5555).
-3. The card cutting backend (on port 8888)
+3. The card cutting backend (cardify-2.0, port 8888)
 
 ## Docker
 1. `docker build -t cx-frontend .`
