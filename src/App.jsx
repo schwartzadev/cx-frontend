@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Card from './Card.js';
-import Header from './Header.js';
-import Attribution from './Attribution.js';
+import Card from './Card';
+import Header from './Header';
+import Attribution from './Attribution';
 
 
 class App extends Component {
@@ -51,7 +51,7 @@ class SourceURLsPrompt extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -76,7 +76,7 @@ class SourceURLsPrompt extends Component {
     }
     this.setState({ urlList: urls });
     if (urls.length > 0) {
-      this.setState({showReminders: false}); // hide the reminders if urls have been entered
+      this.setState({ showReminders: false }); // hide the reminders if urls have been entered
     }
   }
 
@@ -86,17 +86,17 @@ class SourceURLsPrompt extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="source-urls-container">
-            <textarea
-              className="source-urls-prompt"
-              rows={5}
-              placeholder={textareaPlaceholder}
-              onChange={this.handleChange}
-            />
-            <input type="submit" value="Get Source Info" className="button button-blue" />
+          <textarea
+            className="source-urls-prompt"
+            rows={5}
+            placeholder={textareaPlaceholder}
+            onChange={this.handleChange}
+          />
+          <input type="submit" value="Get Source Info" className="button button-blue" />
         </form>
         {showReminders ? (<p className="user-reminder-text">enter some URLs into the box above to get started...</p>) : (null)}
         {this.state.urlList.map((url, index) => (
-          <Card url={url} key={index+1}/>
+          <Card url={url} key={index + 1} />
         ))}
       </div>
     )
