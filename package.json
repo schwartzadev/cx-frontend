@@ -5,6 +5,8 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "downloadjs": "^1.4.7",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-only-warn": "^1.0.3",
     "moment": "^2.24.0",
     "react": "^16.8.4",
     "react-cookie": "^4.0.1",
@@ -25,6 +27,9 @@
       "eslint:recommended",
       "airbnb"
     ],
+    "plugins": [
+      "only-warn"
+    ],
     "rules": {
       "react/function-component-definition": [
         2,
@@ -39,8 +44,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "eslint-config-airbnb": "^19.0.4"
-  }
+  ]
 }
