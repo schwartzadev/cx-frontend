@@ -3,11 +3,14 @@ import ContentEditable from './react-contenteditable';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
+require('dotenv').config();
+
 var moment = require('moment');
 var download = require('downloadjs');
 
-// TODO: env var!
-const mercuryApiBaseUrl = 'http://127.0.0.1:5555/?url=';
+const HOST = process.env.REACT_APP_API_HOST;
+
+const mercuryApiBaseUrl = `${HOST}:5555/?url=`;
 var lastCardId = 0; // reset this to zero when "get source info" is clicked
 
 class Card extends Component {
@@ -116,8 +119,7 @@ class Card extends Component {
     }
     console.log(postData);
 
-    // TODO: use env var!
-    fetch("http://127.0.0.1:8000/api/v2/save/", {
+    fetch(`${HOST}:8000/api/v2/save/`, {
       body: JSON.stringify(postData),
       headers: {
         "Content-Type": "application/json",
