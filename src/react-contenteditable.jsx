@@ -10,11 +10,11 @@ import * as React from 'react';
 import deepEqual from 'fast-deep-equal';
 import * as PropTypes from 'prop-types';
 
-function normalizeHtml(str: string): string {
+function normalizeHtml(str) {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
 
-function findLastTextNode(node: Node): Node | null {
+function findLastTextNode(node) {
   if (node.nodeType === Node.TEXT_NODE) return node;
   let children = node.childNodes;
   for (let i = children.length - 1; i >= 0; i--) {
@@ -24,7 +24,7 @@ function findLastTextNode(node: Node): Node | null {
   return null;
 }
 
-function replaceCaret(el: HTMLElement) {
+function replaceCaret(el) {
   // Place the caret at the end of the element
   const target = findLastTextNode(el);
   // do not move caret if element was not focused
@@ -45,9 +45,9 @@ function replaceCaret(el: HTMLElement) {
 /**
  * A simple component for an html element with editable contents.
  */
-export default class ContentEditable extends React.Component<Props> {
-  lastHtml: string = this.props.html;
-  el: any = typeof this.props.innerRef === 'function' ? { current: null } : React.createRef<HTMLElement>();
+export default class ContentEditable extends React.Component {
+  lastHtml = this.props.html;
+  el = typeof this.props.innerRef === 'function' ? { current: null } : React.createRef();
 
   getEl = () => (this.props.innerRef && typeof this.props.innerRef !== 'function' ? this.props.innerRef : this.el).current;
 
@@ -80,7 +80,7 @@ export default class ContentEditable extends React.Component<Props> {
       tagName || 'div',
       {
         ...props,
-        ref: typeof innerRef === 'function' ? (current: HTMLElement) => {
+        ref: typeof innerRef === 'function' ? (current) => {
           innerRef(current)
           this.el.current = current
         } : innerRef || this.el,
@@ -94,7 +94,7 @@ export default class ContentEditable extends React.Component<Props> {
       this.props.children);
   }
 
-  shouldComponentUpdate(nextProps: Props): boolean {
+  shouldComponentUpdate(nextProps) {
     const { props } = this;
     const el = this.getEl();
 
@@ -131,7 +131,7 @@ export default class ContentEditable extends React.Component<Props> {
     replaceCaret(el);
   }
 
-  emitChange = (originalEvt: React.SyntheticEvent<any>) => {
+  emitChange = (originalEvt) => {
     const el = this.getEl();
     if (!el) return;
 
@@ -161,17 +161,4 @@ export default class ContentEditable extends React.Component<Props> {
       PropTypes.func,
     ])
   }
-}
-
-export type ContentEditableEvent = React.SyntheticEvent<any, Event> & { target: { value: string } };
-type Modify<T, R> = Pick<T, Exclude<keyof T, keyof R>> & R;
-type DivProps = Modify<JSX.IntrinsicElements["div"], { onChange: ((event: ContentEditableEvent) => void) }>;
-
-export interface Props extends DivProps {
-  html: string,
-  disabled?: boolean,
-  tagName?: string,
-  className?: string,
-  style?: Object,
-  innerRef?: React.RefObject<HTMLElement> | Function,
 }

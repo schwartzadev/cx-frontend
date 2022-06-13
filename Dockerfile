@@ -5,7 +5,14 @@ COPY package*.json ./
 
 RUN npm ci --only=production
 
+ARG REACT_APP_API_HOST
+RUN test -n "$REACT_APP_API_HOST"
+ENV REACT_APP_API_HOST $REACT_APP_API_HOST
+
 COPY . .
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+RUN npm run build
+RUN npm install -g serve
+
+CMD [ "serve", "-s", "build" ]

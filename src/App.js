@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import wordVectors from './hardCodedCardWords.js';
 import Card from './Card.js';
 import Header from './Header.js';
 import Attribution from './Attribution.js';
@@ -10,7 +9,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardWords: wordVectors,
       isHidden: false
     }
   }
@@ -26,8 +24,6 @@ class App extends Component {
       <div className="App" id="card-container">
         <Attribution />
         <Header />
-        {/* <Setting label="Show word vectors in cards?" defaultChecked={false} onChecked={handleWordVectors} name="showWordVectors" />
-        <hr />  */}
         <SourceURLsPrompt />
       </div>
     );
@@ -108,48 +104,4 @@ class SourceURLsPrompt extends Component {
 }
 
 
-function handleWordVectors(status) {
-  let updatedState = status ? 'block' : 'none';
-  for (let el of document.querySelectorAll('.word-vector')) el.style.display = updatedState; // update the style of all of the word-vector elements
-}
-
-
 export default App;
-
-
-class Setting extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isChecked: this.props.defaultChecked,
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.checked;
-
-    this.props.onChecked(target.checked);
-
-    this.setState({
-      'isChecked': value
-    });
-  }
-
-  render() {
-    return (
-      <form>
-        <label>
-          {this.props.label}
-          <input
-            name={this.props.name}
-            type="checkbox"
-            checked={this.state.isChecked}
-            onChange={this.handleInputChange} />
-        </label>
-      </form>
-    );
-  }
-}
