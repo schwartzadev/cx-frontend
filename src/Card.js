@@ -5,8 +5,8 @@ import { withCookies, Cookies } from 'react-cookie';
 
 require('dotenv').config();
 
-var moment = require('moment');
-var download = require('downloadjs');
+const moment = require('moment');
+const download = require('downloadjs');
 
 const HOST = process.env.REACT_APP_API_HOST;
 
@@ -43,33 +43,33 @@ class Card extends Component {
     return lastCardId;
   }
 
-  componentDidMount () {
-    this.setState({fetchInProgress: true}); // start fetching...
+  componentDidMount() {
+    this.setState({ fetchInProgress: true }); // start fetching...
 
     fetch(mercuryApiBaseUrl + this.props.url) // TODO handle bad responses
-    .then( results => {
-      this.setState({fetchInProgress: false}); // done fetching...
-      return results.json()
-    }).then( data => {
-      var author = null;
-      if (data.mercury.author != null) { // set author
-        author = data.mercury.author // TODO get only the last name here
-      } else {
-        author = data.mercury.domain
-      }
+      .then(results => {
+        this.setState({ fetchInProgress: false }); // done fetching...
+        return results.json()
+      }).then(data => {
+        var author = null;
+        if (data.mercury.author != null) { // set author
+          author = data.mercury.author // TODO get only the last name here
+        } else {
+          author = data.mercury.domain
+        }
 
-      var dateInfo = this.generateDateStrings(data.mercury.date_published);
-      this.setState({
-        title: data.mercury.title,
-        source: data.mercury.domain,
-        tag: data.mercury.title,
-        cite: author + ' ' + dateInfo.citeDate,
-        accessDate: dateInfo.accessDate,
-        body: data.mercury.content,
-        publishedDate: dateInfo.publishedDate,
-      });
+        var dateInfo = this.generateDateStrings(data.mercury.date_published);
+        this.setState({
+          title: data.mercury.title,
+          source: data.mercury.domain,
+          tag: data.mercury.title,
+          cite: author + ' ' + dateInfo.citeDate,
+          accessDate: dateInfo.accessDate,
+          body: data.mercury.content,
+          publishedDate: dateInfo.publishedDate,
+        });
 
-    })
+      })
   }
 
   generateDateStrings(dateString) {
@@ -90,9 +90,9 @@ class Card extends Component {
     }
   }
 
-  handleTagChange = evt => { this.setState({tag: evt.target.value}); };
-  handleCiteChange = evt => { this.setState({cite: evt.target.value}); };
-  handleCredentialChange = evt => { this.setState({credential: evt.target.value});};
+  handleTagChange = evt => { this.setState({ tag: evt.target.value }); };
+  handleCiteChange = evt => { this.setState({ cite: evt.target.value }); };
+  handleCredentialChange = evt => { this.setState({ credential: evt.target.value }); };
 
   getCredentialString() { return (this.state.credential === '' || this.state.credential === undefined) ? '' : '[' + this.state.credential + ']'; }
   // todo handle articles with no date
@@ -100,22 +100,22 @@ class Card extends Component {
 
   cutCard() {
 
-    function getFileName(cite, tag) {
-      return `Cardify ${cite.replace(/[^a-z0-9]/gi, '_')}.docx`;
-    }
+    const getFileName = (cite, tag) => `Cardify ${cite.replace(/[^a-z0-9]/gi, '_')}.docx`;
 
     console.log('cutting card...');
-    var postData = {
-      "title": this.state.title,
-      "cite": this.state.cite,
-      "tag": this.state.tag,
-      "source": this.state.source,
-      "published_date": this.state.publishedDate,
-      "access_date": this.state.accessDate,
-      "url": this.state.url,
-      "attribution": this.state.attribution,
-      "credential": this.state.credential,
-      "body": this.state.body,
+
+    const { state } = this;
+    const postData = {
+      "title": state.title,
+      "cite": state.cite,
+      "tag": state.tag,
+      "source": state.source,
+      "published_date": state.publishedDate,
+      "access_date": state.accessDate,
+      "url": state.url,
+      "attribution": state.attribution,
+      "credential": state.credential,
+      "body": state.body,
     }
     console.log(postData);
 
@@ -126,12 +126,12 @@ class Card extends Component {
       },
       method: "POST"
     })
-    .then(response => response.blob())
-    .then(blob => download (
-      blob,
-      getFileName(this.state.cite, this.state.tag),
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ));
+      .then(response => response.blob())
+      .then(blob => download(
+        blob,
+        getFileName(this.state.cite, this.state.tag),
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ));
   }
 
   render() {
@@ -139,51 +139,51 @@ class Card extends Component {
     if (isFetching) {
       return (
         <div className="card">
-            <p className="card-label">Card #{this.state.id}</p>
+          <p className="card-label">Card #{this.state.id}</p>
           <div className="card-tag">loading...</div>
         </div>
       )
     } else {
       return (
         <div className="card">
-            {/* TODO prevent new lines in here */}
-            <p className="card-label">Card #{this.state.id}</p>
-            <ContentEditable
-                  innerRef={this.tagContentEditable}
-                  html={this.state.tag}
-                  onChange={this.handleTagChange}
-                  className="card-tag"
-                  plainTextOnly={true}
-            />
-            <ContentEditable
-                  innerRef={this.citeContentEditable}
-                  html={this.state.cite}
-                  onChange={this.handleCiteChange}
-                  className="card-cite"
-                  tagName="span"
-                  plainTextOnly={true}
-            />
+          {/* TODO prevent new lines in here */}
+          <p className="card-label">Card #{this.state.id}</p>
+          <ContentEditable
+            innerRef={this.tagContentEditable}
+            html={this.state.tag}
+            onChange={this.handleTagChange}
+            className="card-tag"
+            plainTextOnly={true}
+          />
+          <ContentEditable
+            innerRef={this.citeContentEditable}
+            html={this.state.cite}
+            onChange={this.handleCiteChange}
+            className="card-cite"
+            tagName="span"
+            plainTextOnly={true}
+          />
 
-            <span className="card-cite-details">
-              <span className="card-credential">{this.getCredentialString()}</span>
-              <CiteDetail
-                    title={this.state.title}
-                    source={this.state.source}
-                    publishedDate={this.state.publishedDate}
-                    url={this.state.url}
-                    accessDate={this.state.accessDate}
-                    attribution={this.state.attribution}
-              />
-            </span>
-            <textarea
-                className="source-urls-prompt"
-                rows={3}
-                placeholder="enter your source credentials here (optional)"
-                onChange={this.handleCredentialChange}
+          <span className="card-cite-details">
+            <span className="card-credential">{this.getCredentialString()}</span>
+            <CiteDetail
+              title={this.state.title}
+              source={this.state.source}
+              publishedDate={this.state.publishedDate}
+              url={this.state.url}
+              accessDate={this.state.accessDate}
+              attribution={this.state.attribution}
             />
-            <div className="card-button-container">
-              <button onClick={() => this.cutCard()} className="button button-small button-grey button-center">cut card</button>
-            </div>
+          </span>
+          <textarea
+            className="source-urls-prompt"
+            rows={3}
+            placeholder="enter your source credentials here (optional)"
+            onChange={this.handleCredentialChange}
+          />
+          <div className="card-button-container">
+            <button onClick={() => this.cutCard()} className="button button-small button-grey button-center">cut card</button>
+          </div>
         </div>
       );
     }
@@ -191,12 +191,12 @@ class Card extends Component {
 }
 
 class CiteDetail extends Component {
-  render () {
+  render() {
     return (
       <span>
-         "{this.props.title}" via {this.props.source}, 
-          published on {this.props.publishedDate}. <a className="card-url" href={this.props.url}>{this.props.url}</a> via 
-          Debate Cardify. DOA: {this.props.accessDate} {this.props.attribution}
+        "{this.props.title}" via {this.props.source},
+        published on {this.props.publishedDate}. <a className="card-url" href={this.props.url}>{this.props.url}</a> via
+        Debate Cardify. DOA: {this.props.accessDate} {this.props.attribution}
       </span>
     )
   }
