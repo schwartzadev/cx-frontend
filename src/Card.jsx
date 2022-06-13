@@ -3,6 +3,8 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import ContentEditable from './react-contenteditable';
 
+import CiteDetail from './CiteDetail';
+
 require('dotenv').config();
 
 const moment = require('moment');
@@ -190,34 +192,6 @@ class Card extends Component {
           <button onClick={() => this.cutCard()} className="button button-small button-grey button-center">cut card</button>
         </div>
       </div>
-    );
-  }
-}
-
-class CiteDetail extends Component {
-  render() {
-    return (
-      <span>
-        "
-        {this.props.title}
-        " via
-        {' '}
-        {this.props.source}
-        ,
-        published on
-        {' '}
-        {this.props.publishedDate}
-        .
-        {' '}
-        <a className="card-url" href={this.props.url}>{this.props.url}</a>
-        {' '}
-        via
-        Debate Cardify. DOA:
-        {' '}
-        {this.props.accessDate}
-        {' '}
-        {this.props.attribution}
-      </span>
     );
   }
 }
