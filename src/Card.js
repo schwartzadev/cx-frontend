@@ -6,10 +6,9 @@ import { withCookies, Cookies } from 'react-cookie';
 var moment = require('moment');
 var download = require('downloadjs');
 
-const mercuryApiBaseUrl = 'http://localhost:5555/card/?url=';
+// TODO: env var!
+const mercuryApiBaseUrl = 'http://127.0.0.1:5555/?url=';
 var lastCardId = 0; // reset this to zero when "get source info" is clicked
-
-
 
 class Card extends Component {
 
@@ -117,7 +116,8 @@ class Card extends Component {
     }
     console.log(postData);
 
-    fetch("http://localhost:8000/api/v2/save/", {
+    // TODO: use env var!
+    fetch("http://127.0.0.1:8000/api/v2/save/", {
       body: JSON.stringify(postData),
       headers: {
         "Content-Type": "application/json",
