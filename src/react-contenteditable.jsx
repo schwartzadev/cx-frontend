@@ -16,9 +16,9 @@ function normalizeHtml(str) {
 
 function findLastTextNode(node) {
   if (node.nodeType === Node.TEXT_NODE) return node;
-  let children = node.childNodes;
+  const children = node.childNodes;
   for (let i = children.length - 1; i >= 0; i--) {
-    let textNode = findLastTextNode(children[i]);
+    const textNode = findLastTextNode(children[i]);
     if (textNode !== null) return textNode;
   }
   return null;
@@ -30,9 +30,9 @@ function replaceCaret(el) {
   // do not move caret if element was not focused
   const isTargetFocused = document.activeElement === el;
   if (target !== null && target.nodeValue !== null && isTargetFocused) {
-    var sel = window.getSelection();
+    const sel = window.getSelection();
     if (sel !== null) {
-      var range = document.createRange();
+      const range = document.createRange();
       range.setStart(target, target.nodeValue.length);
       range.collapse(true);
       sel.removeAllRanges();
@@ -47,29 +47,32 @@ function replaceCaret(el) {
  */
 export default class ContentEditable extends React.Component {
   lastHtml = this.props.html;
+
   el = typeof this.props.innerRef === 'function' ? { current: null } : React.createRef();
 
   getEl = () => (this.props.innerRef && typeof this.props.innerRef !== 'function' ? this.props.innerRef : this.el).current;
 
   render() {
-    const { tagName, html, innerRef, ...props } = this.props;
+    const {
+      tagName, html, innerRef, ...props
+    } = this.props;
 
-    var contentEditableState = true;
+    let contentEditableState = true;
 
     if (this.props.plainTextOnly) {
-      contentEditableState = "plaintext-only";
+      contentEditableState = 'plaintext-only';
     }
 
     if (this.props.typing) {
-      contentEditableState = "typing";
+      contentEditableState = 'typing';
     }
 
     if (this.props.caret) {
-      contentEditableState = "caret";
+      contentEditableState = 'caret';
     }
 
     if (this.props.events) {
-      contentEditableState = "events";
+      contentEditableState = 'events';
     }
 
     if (this.props.disabled) {
@@ -81,17 +84,18 @@ export default class ContentEditable extends React.Component {
       {
         ...props,
         ref: typeof innerRef === 'function' ? (current) => {
-          innerRef(current)
-          this.el.current = current
+          innerRef(current);
+          this.el.current = current;
         } : innerRef || this.el,
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         onKeyUp: this.props.onKeyUp || this.emitChange,
         onKeyDown: this.props.onKeyDown || this.emitChange,
         contentEditable: contentEditableState,
-        dangerouslySetInnerHTML: { __html: html }
+        dangerouslySetInnerHTML: { __html: html },
       },
-      this.props.children);
+      this.props.children,
+    );
   }
 
   shouldComponentUpdate(nextProps) {
@@ -112,11 +116,11 @@ export default class ContentEditable extends React.Component {
     }
 
     // Handle additional properties
-    return props.disabled !== nextProps.disabled ||
-      props.tagName !== nextProps.tagName ||
-      props.className !== nextProps.className ||
-      props.innerRef !== nextProps.innerRef ||
-      !deepEqual(props.style, nextProps.style);
+    return props.disabled !== nextProps.disabled
+      || props.tagName !== nextProps.tagName
+      || props.className !== nextProps.className
+      || props.innerRef !== nextProps.innerRef
+      || !deepEqual(props.style, nextProps.style);
   }
 
   componentDidUpdate() {
@@ -139,11 +143,12 @@ export default class ContentEditable extends React.Component {
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid
       // "Cannot assign to read only property 'target' of object"
-      const evt = Object.assign({}, originalEvt, {
+      const evt = {
+        ...originalEvt,
         target: {
-          value: html
-        }
-      });
+          value: html,
+        },
+      };
       this.props.onChange(evt);
     }
     this.lastHtml = html;
@@ -159,6 +164,6 @@ export default class ContentEditable extends React.Component {
     innerRef: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.func,
-    ])
+    ]),
   }
 }

@@ -4,19 +4,18 @@ import Card from './Card';
 import Header from './Header';
 import Attribution from './Attribution';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isHidden: false
-    }
+      isHidden: false,
+    };
   }
 
   hide() {
     this.setState({
-      isHidden: false
-    })
+      isHidden: false,
+    });
   }
 
   render() {
@@ -46,7 +45,7 @@ class SourceURLsPrompt extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       urlList: [],
-      showReminders: true
+      showReminders: true,
     };
   }
 
@@ -56,18 +55,18 @@ class SourceURLsPrompt extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (typeof this.state.value === "undefined") {
+    if (typeof this.state.value === 'undefined') {
       alert('no urls were entered :(');
       return;
     }
-    let rawUrls = this.state.value.split('\n');
-    let urls = rawUrls.filter(isUrl);
-    let badUrlsCount = rawUrls.length - urls.length;
+    const rawUrls = this.state.value.split('\n');
+    const urls = rawUrls.filter(isUrl);
+    const badUrlsCount = rawUrls.length - urls.length;
 
     if (badUrlsCount === 1) {
-      alert('1 url was removed because it was malformed')
+      alert('1 url was removed because it was malformed');
     } else if (badUrlsCount > 1) {
-      alert(badUrlsCount + ' urls were removed because they were malformed')
+      alert(`${badUrlsCount} urls were removed because they were malformed`);
     }
 
     if (urls.length > 5) {
@@ -81,8 +80,8 @@ class SourceURLsPrompt extends Component {
   }
 
   render() {
-    const showReminders = this.state.showReminders;
-    const textareaPlaceholder = "Enter your source URLs (one per line)";
+    const { showReminders } = this.state;
+    const textareaPlaceholder = 'Enter your source URLs (one per line)';
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="source-urls-container">
@@ -99,9 +98,8 @@ class SourceURLsPrompt extends Component {
           <Card url={url} key={index + 1} />
         ))}
       </div>
-    )
+    );
   }
 }
-
 
 export default App;
