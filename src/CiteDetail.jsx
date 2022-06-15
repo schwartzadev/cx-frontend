@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const CiteDetail = ({
   title,
@@ -30,5 +31,18 @@ const CiteDetail = ({
     {attribution}
   </span>
 );
+
+CiteDetail.propTypes = {
+  title: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
+  publishedDate: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  accessDate: PropTypes.string.isRequired,
+  attribution: PropTypes.string,
+};
+
+CiteDetail.defaultProps = {
+  attribution: '',
+};
 
 export default CiteDetail;
