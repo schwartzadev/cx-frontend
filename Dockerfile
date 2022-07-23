@@ -1,9 +1,9 @@
-FROM node:11
+FROM node:lts
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm ci --only=production
+RUN npm install
 
 ARG REACT_APP_API_HOST
 RUN test -n "$REACT_APP_API_HOST"
