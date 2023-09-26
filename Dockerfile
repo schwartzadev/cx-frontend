@@ -1,4 +1,5 @@
-FROM node:lts
+# This is the node lts as of Sep. 26, 2023
+FROM node:18.18.0
 WORKDIR /usr/src/app
 
 COPY package*.json ./
