@@ -5,8 +5,6 @@ import ContentEditable from './react-contenteditable';
 
 import CiteDetail from './CiteDetail';
 
-require('dotenv').config();
-
 const moment = require('moment');
 const download = require('downloadjs');
 
