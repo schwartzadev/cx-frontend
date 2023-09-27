@@ -118,7 +118,7 @@ class Card extends Component {
     };
     console.log(postData);
 
-    fetch(`${HOST}:8000/api/v2/save/`, {
+    fetch(`${HOST}:8000/save`, {
       body: JSON.stringify(postData),
       headers: {
         'Content-Type': 'application/json',
