@@ -4,22 +4,42 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "dotenv": "^16.0.1",
     "downloadjs": "^1.4.7",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-only-warn": "^1.0.3",
     "moment": "^2.24.0",
+    "prop-types": "^15.8.1",
     "react": "^16.8.4",
     "react-cookie": "^4.0.1",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8",
+    "react-scripts": "^5.0.1",
     "typescript": "^3.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .jsx,.js src/ --fix"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "eslint:recommended",
+      "airbnb"
+    ],
+    "plugins": [
+      "only-warn"
+    ],
+    "rules": {
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "arrow-function"
+        }
+      ]
+    }
   },
   "browserslist": [
     ">0.2%",
