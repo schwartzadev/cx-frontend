@@ -59,10 +59,6 @@ export default class ContentEditable extends React.Component {
 
     let contentEditableState = true;
 
-    if (this.props.plainTextOnly) {
-      contentEditableState = 'plaintext-only';
-    }
-
     if (this.props.typing) {
       contentEditableState = 'typing';
     }

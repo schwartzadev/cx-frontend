@@ -168,7 +168,6 @@ class Card extends Component {
           html={this.state.tag}
           onChange={this.handleTagChange}
           className="card-tag"
-          plainTextOnly
         />
         <ContentEditable
           innerRef={this.citeContentEditable}
@@ -176,19 +175,22 @@ class Card extends Component {
           onChange={this.handleCiteChange}
           className="card-cite"
           tagName="span"
-          plainTextOnly
         />
 
         <span className="card-cite-details">
           <span className="card-credential">{this.getCredentialString()}</span>
-          <CiteDetail
-            title={this.state.title}
-            source={this.state.source}
-            publishedDate={this.state.publishedDate}
-            url={this.state.url}
-            accessDate={this.state.accessDate}
-            attribution={this.state.attribution}
-          />
+          {
+            this.state.title && this.state.source && this.state.publishedDate && this.state.url && this.state.accessDate && (
+              <CiteDetail
+                title={this.state.title}
+                source={this.state.source}
+                publishedDate={this.state.publishedDate}
+                url={this.state.url}
+                accessDate={this.state.accessDate}
+                attribution={this.state.attribution}
+              />
+            )
+          }
         </span>
         <textarea
           className="source-urls-prompt"

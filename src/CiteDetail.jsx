@@ -7,7 +7,7 @@ const CiteDetail = ({
   publishedDate,
   url,
   accessDate,
-  attribution,
+  attribution = '', // Default parameter here
 }) => (
   <span>
     &quot;
@@ -39,10 +39,6 @@ CiteDetail.propTypes = {
   url: PropTypes.string.isRequired,
   accessDate: PropTypes.string.isRequired,
   attribution: PropTypes.string,
-};
-
-CiteDetail.defaultProps = {
-  attribution: '',
 };
 
 export default CiteDetail;
