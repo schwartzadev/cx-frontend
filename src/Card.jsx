@@ -8,9 +8,9 @@ import CiteDetail from './CiteDetail';
 const moment = require('moment');
 const download = require('downloadjs');
 
-const HOST = process.env.REACT_APP_API_HOST;
+const mercuryApiUrl = process.env.REACT_APP_MERCURY_PARSER_API_URL;
+const cardCuttingBaseUrl = 'https://google.com:8000/save';
 
-const mercuryApiBaseUrl = `${HOST}:5555/?url=`;
 let lastCardId = 0; // reset this to zero when "get source info" is clicked
 
 class Card extends Component {
@@ -45,7 +45,17 @@ class Card extends Component {
   componentDidMount() {
     this.setState({ fetchInProgress: true }); // start fetching...
 
-    fetch(mercuryApiBaseUrl + this.props.url) // TODO handle bad responses
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify({ url: this.state.url }),
+      redirect: "follow"
+    };
+    
+    fetch(mercuryApiUrl, requestOptions) // TODO: handle bad responses
       .then((results) => {
         this.setState({ fetchInProgress: false }); // done fetching...
         return results.json();
@@ -118,7 +128,7 @@ class Card extends Component {
     };
     console.log(postData);
 
-    fetch(`${HOST}:8000/save`, {
+    fetch(cardCuttingBaseUrl, {
       body: JSON.stringify(postData),
       headers: {
         'Content-Type': 'application/json',
