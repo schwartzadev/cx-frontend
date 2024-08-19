@@ -152,7 +152,7 @@ export default class ContentEditable extends React.Component {
       this.props.onChange(evt);
     }
     this.lastHtml = html;
-  }
+  };
 
   static propTypes = {
     html: PropTypes.string.isRequired,
@@ -165,5 +165,5 @@ export default class ContentEditable extends React.Component {
       PropTypes.object,
       PropTypes.func,
     ]),
-  }
+  };
 }
